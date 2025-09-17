@@ -51,10 +51,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    private void OnCollisionStay(Collision other)
     {
         Vector3 floorNormal = other.contacts[0].normal.normalized;
-        if (Vector3.Dot(floorNormal, Vector3.up) > 0.5f)
+        // dot product returns
+        // -1 to 1
+        // 1 means the vectors are pointing exactly the same direction
+        // 0 means they are pointing at a right angle
+        // -1 means exact opposite direction
+        if (Vector3.Dot(floorNormal, Vector3.up) > 0.5f) 
         {
             isGrounded = true;
         }
