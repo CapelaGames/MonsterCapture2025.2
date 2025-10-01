@@ -30,7 +30,7 @@ public class EnemyJumper : MonoBehaviour
 
     public bool IsFacingPlayer()
     {
-        Vector3 directionToPlayer = player.transform.position - transform.forward;
+        Vector3 directionToPlayer = player.transform.position - transform.position;
         directionToPlayer.Normalize();
 
         float dotResult = Vector3.Dot(directionToPlayer, transform.forward);
