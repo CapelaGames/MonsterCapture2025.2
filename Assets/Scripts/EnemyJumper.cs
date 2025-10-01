@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyJumper : MonoBehaviour
@@ -6,6 +7,7 @@ public class EnemyJumper : MonoBehaviour
 
     public ChasingState chasingState;
     public PatrolState patrolState;
+    public AttackState attackState;
 
     private GameObject player;
 
@@ -15,6 +17,7 @@ public class EnemyJumper : MonoBehaviour
         player = FindFirstObjectByType<PlayerMovement>().gameObject;
         chasingState = new ChasingState(player, gameObject, GetComponent<Rigidbody>());
         patrolState = new PatrolState(player, gameObject, GetComponent<Rigidbody>());
+        attackState = new AttackState(player, gameObject, GetComponent<Rigidbody>());
 
         stateMachine.ChangeState(patrolState);
     }
@@ -31,8 +34,8 @@ public class EnemyJumper : MonoBehaviour
         directionToPlayer.Normalize();
 
         float dotResult = Vector3.Dot(directionToPlayer, transform.forward);
-        //Debug.
-        return dotResult >= 0.8f;
+        Debug.Log(dotResult);
+        return dotResult >= 0f;
         /*
         if(dotResult >= 0.95f)
         {
@@ -43,5 +46,10 @@ public class EnemyJumper : MonoBehaviour
             return false;
         }
         */
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        stateMachine.currentState.OnCollisionEnter(other);
     }
 }

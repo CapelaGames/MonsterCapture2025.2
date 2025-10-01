@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class ChasingState : IState
 {
+    EnemyJumper owner;
+    
     GameObject player;
     GameObject ai;
     Rigidbody rb;
@@ -11,6 +13,7 @@ public class ChasingState : IState
     {
         this.player = player;
         this.ai = ai;  
+        owner = ai.GetComponent<EnemyJumper>();
         this.rb = rb; 
     }
 
@@ -28,6 +31,14 @@ public class ChasingState : IState
 
         Vector3 direction = player.transform.position - ai.transform.position;
         rb.AddForce(direction * 0.5f);
+
+        if (direction.magnitude < 10f)
+        {
+            //Change to attack state
+            owner.stateMachine.ChangeState(owner.attackState);
+        }
+        
+        // if()
     }
 
     public void Exit()
