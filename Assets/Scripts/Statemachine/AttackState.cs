@@ -27,7 +27,7 @@ public class AttackState : IState
             ai.transform.localScale.y * 0.4f,
             ai.transform.localScale.z * 3);
         Vector3 direction = player.transform.position - ai.transform.position;
-        rb.AddForce(direction.normalized * 800f);
+        rb.AddForce(direction.normalized * 100f);
     }
 
     public void Execute()
